@@ -1,0 +1,32 @@
+---
+import Layout from "../layout/layout.astro";
+const {t} = Astro.props;
+---
+
+<Layout>    
+    <section class="formacion">
+        <h2>{t.formacion.title}</h2>
+        <div class="formacion_timeline">
+            <ul>
+                <li>
+                    <div class="formacion_timeline_content">
+                        <h4>{t.formacion.content1.title}</h4>
+                        <p>{t.formacion.content1.description}</p>
+                    </div>
+                    <div class="formacion_timeline_time">
+                        <h4>{t.formacion.time1}</h4>
+                    </div>
+                </li>
+                <li>
+                    <div class="formacion_timeline_content">
+                        <h4>{t.formacion.content2.title}</h4>
+                        <p>{t.formacion.content2.description}</p>
+                    </div>
+                    <div class="formacion_timeline_time">
+                        <h4>{t.formacion.time2}</h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</Layout>

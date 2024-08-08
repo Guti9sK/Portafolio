@@ -1,0 +1,259 @@
+@use "./reset/reset" as *;
+@use "./colores/variables" as *;
+@use './portfolio/portfolio' as *;
+
+
+// Importaciones necesarias dentro del tag styles del archivo .astro
+// @import "../styles-astro/main.scss";
+//   @import "../styles-astro/typografia/_typography.scss";
+//   @import "../styles-astro/grid/_variables.scss";
+//   @import "../styles-astro/fuentes/_fonts.scss";
+
+// GLASSMORFISMO MIXINS
+@mixin backdrop-filter-blur($blur-value) {
+  backdrop-filter: blur($blur-value);
+  -webkit-backdrop-filter: blur(
+    $blur-value
+  ); // Para compatibilidad con navegadores WebKit
+}
+@mixin glass-1 {
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+@mixin glass-2 {
+  background-color: rgba(15, 89, 158, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+@mixin glass-3 {
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 30px;
+}
+
+// COLORES MIXINS
+
+// Mixin to retrieve a color from the map
+@mixin color($color-name, $shade) {
+  color: map-get(map-get($colors, $color-name), $shade);
+}
+
+@mixin background-color($color-name, $shade) {
+  background-color: map-get(map-get($colors, $color-name), $shade);
+}
+
+@mixin brightness($percentage) {
+  filter: brightness($percentage);
+  -webkit-filter: brightness($percentage);
+}
+
+@mixin opacity($opacity) {
+  // Opacidad estándar para navegadores modernos
+  opacity: $opacity;
+  // Opacidad para Internet Explorer 8 y versiones anteriores
+  filter: alpha(opacity= #{$opacity * 100});
+}
+
+// BLUR MIXINS
+// Mixin para desenfoque básico
+@mixin blur($radius) {
+  filter: blur($radius);
+  -webkit-filter: blur($radius);
+}
+
+// Mixin para desenfoque con sombra
+@mixin shadow-blur($radius, $shadow) {
+  filter: blur($radius);
+  -webkit-filter: blur($radius);
+  box-shadow: $shadow;
+}
+
+// Mixin para desenfoque con opacidad
+@mixin blur-opacity($radius, $opacity) {
+  filter: blur($radius);
+  -webkit-filter: blur($radius);
+  opacity: $opacity;
+}
+
+// Mixin para desenfoque con saturación
+@mixin blur-saturation($radius, $saturation) {
+  filter: blur($radius) saturate($saturation);
+  -webkit-filter: blur($radius) saturate($saturation);
+}
+
+// GRID MIXINS
+
+// Mixin para media queries
+@mixin media-query($breakpoint) {
+  @if $breakpoint == mobile-portrait-small {
+    @media (max-width: #{$mobile-portrait-small}) {
+      @content;
+    }
+  } @else if $breakpoint == mobile-portrait-medium {
+    @media (max-width: #{$mobile-portrait-medium}) {
+      @content;
+    }
+  } @else if $breakpoint == mobile-portrait-large {
+    @media (max-width: #{$mobile-portrait-large}) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-small {
+    @media (max-width: #{$tablet-small}) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-medium {
+    @media (max-width: #{$tablet-medium}) {
+      @content;
+    }
+  } @else if $breakpoint == tablet-large {
+    @media (max-width: #{$tablet-large}) {
+      @content;
+    }
+  } @else if $breakpoint == desktop-small {
+    @media (max-width: #{$desktop-small}) {
+      @content;
+    }
+  } @else if $breakpoint == desktop-medium {
+    @media (max-width: #{$desktop-medium}) {
+      @content;
+    }
+  } @else if $breakpoint == desktop-large {
+    @media (max-width: #{$desktop-large}) {
+      @content;
+    }
+  }
+}
+
+// Mixin para media queries entre dos valores
+@mixin between($from, $to) {
+  @media (min-width: $from) and (max-width: $to) {
+    @content;
+  }
+}
+
+// Mixin para aplicar márgenes basados en la resolución
+@mixin responsive-margin {
+  margin: $mobile-margin;
+
+  @include respond-to(tablet-small) {
+    margin: $tablet-margin;
+  }
+
+  @include respond-to(desktop-small) {
+    margin: $desktop-margin;
+  }
+}
+
+// Mixin para aplicar gutters basados en la resolución
+@mixin responsive-gutter {
+  gap: $mobile-gutter;
+
+  @include respond-to(tablet-small) {
+    gap: $tablet-gutter;
+  }
+
+  @include respond-to(desktop-small) {
+    gap: $desktop-gutter;
+  }
+}
+
+@function apply-unit($value, $unit) {
+  @return $value * $unit;
+}
+
+// Mixin para aplicar padding
+@mixin padding($values...) {
+  $padding-values: ();
+
+  @each $value in $values {
+    // Si el valor es un número sin unidad, multiplícalo por $grid-unit
+    @if type-of($value) == "number" and unit($value) == "" {
+      $padding-values: append($padding-values, $value * $grid-unit);
+    } @else {
+      $padding-values: append($padding-values, $value);
+    }
+  }
+
+  padding: $padding-values;
+}
+
+@mixin margin($values...) {
+  $margin-values: ();
+
+  @each $value in $values {
+    // Si el valor es un número sin unidad, multiplícalo por $grid-unit
+    @if type-of($value) == "number" and unit($value) == "" {
+      $margin-values: append($margin-values, $value * $grid-unit);
+    } @else {
+      $margin-values: append($margin-values, $value);
+    }
+  }
+
+  margin: $margin-values;
+}
+// Mixin para columnas del grid
+@mixin grid-columns($columns) {
+  width: $columns * ($grid-unit * 2);
+}
+
+@mixin size($width: $spacing-1, $height: $spacing-1) {
+  width: $width;
+  height: $height;
+}
+
+@mixin border-radius(
+  $top-left,
+  $top-right: $top-left,
+  $bottom-right: $top-left,
+  $bottom-left: $top-right
+) {
+  border-radius: $top-left $top-right $bottom-right $bottom-left;
+}
+
+@mixin inset($top: null, $right: null, $bottom: null, $left: null) {
+  // Manejar un solo valor (aplicar a todos los lados)
+  @if $top != null and $right == null and $bottom == null and $left == null {
+    inset: $top;
+  }
+  // Manejar dos valores (vertical | horizontal)
+  @else if $top != null and $right != null and $bottom == null and $left == null
+  {
+    inset: $top $right;
+  }
+  // Manejar tres valores (top | horizontal | bottom)
+  @else if $top != null and $right != null and $bottom != null and $left == null
+  {
+    inset: $top $right $bottom;
+  }
+  // Manejar cuatro valores (top | right | bottom | left)
+  @else if $top != null and $right != null and $bottom != null and $left != null
+  {
+    inset: $top $right $bottom $left;
+  }
+  // Aplicar individualmente si alguno de los valores ES nulo
+  @else {
+    @if $top != null {
+      top: $top;
+    }
+    @if $right != null {
+      right: $right;
+    }
+    @if $bottom != null {
+      bottom: $bottom;
+    }
+    @if $left != null {
+      left: $left;
+    }
+  }
+}
+
+@mixin clamp($property, $min, $preferred, $max) {
+  #{$property}: clamp(#{$min}, #{$preferred}, #{$max});
+}

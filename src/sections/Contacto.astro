@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import email from '../assets/images/email.svg';
+import githubIcon from '../assets/images/github-icon.svg';
+import Layout from "../layout/layout.astro";
+import linkedinIcon from '../assets/images/linkedin-icon.svg';
+const {t} = Astro.props;
+---
+
+<Layout>
+    <section class="contacto" id="contact">
+       <h2>{t.contact.title}</h2>
+       <ul>
+        <li>
+            <a href="https://github.com/Guti9sK" target="_blank" rel="noopener noreferrer" ><Image src={githubIcon} alt="github icon"/></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/agust%C3%ADn-palma-460511318/" target="_blank" rel="noopener noreferrer" ><Image src={linkedinIcon} alt="linkedin icon" /></a>
+        </li>
+        <li>
+            <a href="mailto:aguspalmask1@gmail.com" target="_blank" rel="noopener noreferrer" ><Image src={email} alt="email icon" /></a>
+        </li>
+       </ul>
+    </section>
+</Layout>

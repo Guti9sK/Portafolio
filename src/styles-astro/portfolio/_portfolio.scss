@@ -1,0 +1,842 @@
+@use '../blur-effect/blur-mixin' as *;
+@use '../colores/color-mixin' as *;
+@use '../fuentes/fonts' as *;
+@use '../grid/mixins' as *;
+@use '../grid/variables' as *;
+@use '../glassmorphism/glass-mixin' as *;
+@use '../typografia/typography' as *;
+body {
+    background: url('/src/assets/images/black-brick1.webp') no-repeat center center fixed;
+    background-size: cover;
+    @include size(90vw, 100%);
+    @include color(off-white, 7);
+    margin: 0 auto;
+    transition: .7s color, .7s background-color;
+    @include font-inter;
+
+    & .header {
+        @include size(100%,_);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .mobile-menu {
+            display: none;
+        }
+        &_nav {
+            @include size(90vw,_);
+            display: flex;
+            gap: $spacing-48;
+            background-color: rgba(27, 27, 27, .8);
+            border-radius: $spacing-48;
+            margin: $spacing-8;
+            padding: $spacing-16 $spacing-32;
+            & ul {
+                @include size(100%,_);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                & li {
+                    position: relative;
+                    & a {
+                        text-transform: uppercase;
+                        @include font-quicksand($weight-semibold);
+                    }
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 8px;
+                        height: 8px;
+                        border: 1px solid white;
+                        border-width: 0 0 1px 1px;
+                        opacity: 0;
+                        transition: .5s opacity, .5s bottom, .5s left, .5s top, .5s right;
+                    }
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        width: 8px;
+                        height: 8px;
+                        border: 1px solid white;
+                        border-width: 1px 1px 0 0;
+                        opacity: 0;
+                        transition: .5s opacity, .5s top, .5s right, .5s bottom, .5s left;
+                      }
+                      &:hover::before {
+                        opacity: 1;
+                        bottom: -6px;
+                        left: -6px;
+                      }
+                      &:hover::after {
+                        opacity: 1;
+                        right: -6px;
+                        top: -6px;
+                      }
+                }
+            }
+        }
+        &_theme-btn {
+            margin: 0 $spacing-8;
+            border-radius: $spacing-48;
+            padding: $spacing-8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid transparent;
+            transition: .6s color, .6s background-color, .7s border;
+            @include background-color(transparent, 1);
+            &:hover {
+                border: 1px solid #fff;
+            }
+            & svg {
+                fill: #fff;
+            }
+        }
+        & ul.lang {
+            display: flex;
+            & .header_lang-btn {
+                display: flex;
+                align-items: center;
+                @include font-quicksand($weight-medium);
+                justify-content: center;
+                padding: $spacing-8 $spacing-16;
+                border-radius: $spacing-16;
+                font-size: 1.2rem;
+                margin-left: .5rem;
+                background-color: rgba(27, 27, 27, .8);
+                cursor: pointer;
+                transition: .6s background-color;
+                &:hover {
+                    background-color: #424141;
+                }
+                &:nth-child(1) {
+                    &::before {
+                        content: 'es';
+                    }
+                }
+                &:nth-child(2) {
+                    &::before {
+                        content: 'en';
+                    }
+                }
+            }
+        }
+    }
+    & .about {
+        @include size(_, 100%);
+        margin: 0 $spacing-8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: $spacing-16;
+        padding: $spacing-16 $spacing-8;
+        background-color: rgba(27, 27, 27, .8);
+        &_content {
+            @include size(100%, _);
+            display: flex;
+            justify-content: space-between;
+            padding: $spacing-16 $spacing-32;
+            align-items: center;
+            &_text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: $spacing-24;
+                & h2 {
+                    font-size: clamp(2rem, 5vw, 3.5rem);
+                    letter-spacing: -.2rem;
+                    @include font-quicksand($weight-extra-bold);
+
+                }
+                & p {
+                    @include font-paragraph-small;
+                    @include color(grey, 5);
+                    font-weight: 600;
+                }
+            }
+            &_img {
+                @include size($spacing-128, $spacing-128);
+                & img {
+                    @include size(100%, 100%);
+                    object-fit: cover;
+                    border-radius: $spacing-64;
+                    aspect-ratio: 1 / 1;
+                }
+            }
+        }
+        & .hobbies {
+            @include size(100%, _);
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-16;
+            padding: $spacing-16 $spacing-32;
+            & h3 {
+                font-size: clamp(.75rem, 3vw, 1.25rem);
+                @include font-quicksand($weight-semibold);
+            }
+            & ul {
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-8;
+                & li {
+                    & p {
+                        @include font-paragraph-small;
+                        @include color(grey, 5);
+                    }
+                }
+            }
+        }
+    }
+    & .formacion {
+        @include size(_ , 100%);
+        margin: $spacing-8 $spacing-8;
+        border-radius: $spacing-16;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-32;
+        padding: $spacing-16 $spacing-8;
+        background-color: rgba(27, 27, 27, .8);
+        & > h2 {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);;
+            font-weight: $weight-semibold;
+            @include font-quicksand($weight-semibold);
+        }
+        &_timeline {
+            @include size(100%,_);
+            position: relative;
+             & ul {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: $spacing-8;
+                & li {
+                    margin: $spacing-8;
+                    padding: $spacing-16 $spacing-32;
+                    border-radius: $spacing-8;
+                    border: 1px solid #555;
+                    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.07));
+                    backdrop-filter: blur(15px);
+                    -webkit-backdrop-filter: blur(15px);
+                }
+             }
+             &_content {
+                & h4 {
+                    font-size: clamp(1.25rem, 4vw, 2rem);
+                    letter-spacing: -1px;
+                    @include font-quicksand;
+                    font-weight: $weight-semibold;
+                }
+                & p {
+                    margin: $spacing-16 0;
+                    @include font-paragraph-small;
+                    @include color(grey, 5);
+                }
+             }
+             &_time {
+                width: max-content;
+                & h4 {
+                    font-size: clamp(.5rem, 3vw, 1rem);
+                    @include color(grey, 5);
+
+                }
+             }
+        }
+    }
+    & .tecnologias {
+        @include size(_, 100%);
+        border: 1px solid #262626;
+        margin: $spacing-8 $spacing-8;
+        border-radius: $spacing-16;
+        display: flex;
+        flex-direction: column;
+        padding: $spacing-16;
+        background-color: rgba(27, 27, 27, .8);
+
+        & > h2 {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);;
+            font-weight: $weight-semibold;
+            @include font-quicksand($weight-semibold);
+        }
+        &_list {
+            @include size(100%, 100%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-gap: $spacing-16;
+            padding: $spacing-16;
+            border-radius: $spacing-8;
+            place-items: center;
+            @for $i from 1 through 5 {
+                &_box-#{$i} {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    gap: $spacing-16;
+                    border: 1px solid #555;
+                    border-radius: $spacing-8;
+                    padding: $spacing-16;
+                    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.07));
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                    & > h4 {
+                        text-align: center;
+                        font-size: clamp(.75rem, 3vw, 1rem);
+                        @include font-quicksand($weight-semibold);
+                    }
+                    &_items {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: $spacing-24;
+                        &_item {
+                            flex: 1;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            & img {
+                                @include size(100%, auto);
+                                object-fit: cover;
+                                aspect-ratio: 1 / 1;
+                                max-width: $spacing-120;
+                            }
+                        }
+                    }
+                }
+                &_box-5 {
+                    &_items {
+                        &_item:nth-child(2) {
+                            & img {
+                                filter: invert(100%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    & .proyectos {
+        @include size(_, 100%);
+        margin: 0 $spacing-8;
+        border: 1px solid #262626;
+        border-radius: $spacing-16;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-32;
+        padding: $spacing-16 $spacing-8;
+        background-color: rgba(27, 27, 27, .8);
+        & > h2 {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);;
+            font-weight: $weight-semibold;
+            @include font-quicksand($weight-semibold);
+        }
+        &_list {
+            @include size(100%, 100%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: $spacing-16;
+            padding: 0 $spacing-8 $spacing-8 $spacing-8;
+            &_first,
+            &_second,
+            &_third {
+                width: 100%;
+                height: max-content;
+                display: flex;
+                flex-direction: column;
+                gap: $spacing-16;
+                border: 1px solid #555;
+                border-radius: $spacing-8;
+                padding: $spacing-16;
+                background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.07));
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                & .imagen {
+                    & img {
+                        border-radius: $spacing-8 $spacing-8 0 0;
+                        transition: .9s transform;
+                    }
+                }
+                & .content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: $spacing-8;
+                    & h3 {
+                        font-size: clamp(1.25rem, 4vw, 2rem);
+                        @include font-quicksand($weight-semibold);
+                    }
+                    & p {
+                        @include font-paragraph-small;
+                        @include color(grey, 5);
+                    }
+                }
+                & .enlaces {
+                    display: flex;
+                    justify-content: space-between;
+                    & a {
+                        @include font-paragraph-small;
+                        @include color(grey, 5);
+                        &:hover {
+                            text-decoration: dashed underline;
+                        }
+                    }
+                }
+                &:hover .imagen img {
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+    & .contacto {
+        @include size(_, 100%);
+        border: 1px solid #262626;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(224, 217, 244, .3);
+        display: flex;
+        flex-direction: column;
+        margin: $spacing-8;
+        border-radius: $spacing-16;
+        gap: $spacing-32;
+        & > h2 {
+            text-align: center;
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            font-weight: $weight-semibold;
+            @include font-quicksand($weight-semibold);
+        }
+        & ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: $spacing-56;
+            flex-wrap: wrap;
+            padding: $spacing-16;
+            & li {
+                @include size($spacing-40, $spacing-40);
+                transition: .6s box-shadow;
+                border-radius: 50%;
+                & a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+
+                    & img {
+                        @include size(100%, 100%);
+                        z-index: 2;
+                    }
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        @include size($spacing-56, $spacing-56);
+                        border-radius: 50%;
+                        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5));
+                        backdrop-filter: blur(15px);
+                        -webkit-backdrop-filter: blur(15px);
+                        opacity: .8;
+                    }
+
+                }
+                &:hover {
+                    box-shadow: 0 0 50px rgba(88, 86, 86, 0.8);
+                }
+            }
+        }
+    }
+    & .footer {
+        border: 1px solid #262626;
+        border-radius: $spacing-8 $spacing-8 0 0;
+        background-color: rgba(27, 27, 27, .8);
+        @include size(100%, 100%);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacing-16 $spacing-32;
+        & > p {
+            font-size: clamp(0.25rem, 1.5vw, .75rem);
+            @include color(grey, 5);
+
+        }
+        &_resume-links {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-8;
+            &_es-pdf,
+            &_en-pdf {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: $spacing-8;
+                & a {
+                    font-size: clamp(0.75rem, 1.5vw, 1rem);
+                    &:hover {
+                        text-decoration: underline #fffafa;
+                    }
+                }
+            }
+        }
+    }
+    &.light-theme {
+
+        & .header {
+            &_nav {
+                @include size(100%,_);
+                display: flex;
+                gap: $spacing-48;
+                border: 1px solid #171717;
+                @include background-color(others, 15);
+                @include color(soft-black, 12);
+                border-radius: $spacing-48;
+                margin: $spacing-8 $spacing-8;
+                padding: $spacing-16 $spacing-32;
+                & ul {
+                    @include size(100%,_);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    & li {
+                        position: relative;
+                        & a {
+                            text-transform: uppercase;
+                            @include font-SpaceGrotesk;
+                            font-weight: 800;
+                        }
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 8px;
+                            height: 8px;
+                            border: 1px solid #171717;
+                            border-width: 0 0 1px 1px;
+                            opacity: 0;
+                            transition: .5s opacity, .5s bottom, .5s left, .5s top, .5s right;
+                        }
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 8px;
+                            height: 8px;
+                            border: 1px solid #171717;
+                            border-width: 1px 1px 0 0;
+                            opacity: 0;
+                            transition: .5s opacity, .5s top, .5s right, .5s bottom, .5s left;
+                          }
+                          &:hover::before {
+                            opacity: 1;
+                            bottom: -6px;
+                            left: -6px;
+                          }
+                          &:hover::after {
+                            opacity: 1;
+                            right: -6px;
+                            top: -6px;
+                          }
+                    }
+                }
+            }
+            &_theme-btn {
+                border: none;
+                border: 1px solid transparent;
+                @include background-color(transparent, 1);
+                transition: .6s border, .6s background-color;
+                &:hover {
+                    border: 1px solid #E0D9F4;
+                }
+                & svg {
+                    fill: #E0D9F4;
+                }
+
+            }
+            & ul.lang {
+                & .header_lang-btn {
+                    background-color: rgba(224, 217, 244, .9);
+                    @include color(soft-black, 12);
+                    border: none;
+                    font-weight: 800;
+                    transition: .6s background-color;
+                    &:hover {
+                        background-color: rgba(224, 217, 244, .5);
+                    }
+                }
+            }
+        }
+        & .about {
+            background-color: rgba(224, 217, 244, .9);
+            @include color(soft-black,12);
+            &_content {
+                &_text {
+                    & h2 {
+                        font-weight: 800;
+                    }
+                    & p {
+                        @include color(soft-black,12);
+                        font-weight: 600;
+                    }
+                }
+            }
+            & .hobbies {
+                & > h3 {
+                    font-weight: 800;
+                }
+                & ul {
+                    & li {
+                       & p {
+                           @include color(soft-black,12);
+                           font-weight: 600;
+                       }
+                    }
+                }
+            }
+        }
+        & .formacion {
+            background-color: rgba(224, 217, 244, .9);
+           @include color(soft-black, 12);
+            & > h2 {
+                font-weight: 800;
+            }
+            &_timeline {
+                & ul {
+                    & li {
+                        background-color: rgb(84, 110, 122);
+                        border: none;
+                        box-shadow: 0 0 .5rem .5px rgb(84, 110, 122);
+                    }
+                }
+                &_content {
+                    & h4 {
+                        @include color(grey, 4);
+                    }
+                    & p {
+                        @include color(grey, 4);
+                    }
+                }
+            }
+        }
+        & .tecnologias {
+            background-color: rgba(224, 217, 244, .9);
+            & > h2 {
+                @include color(soft-black, 12);
+                font-weight: 800;
+            }
+            &_list {
+                @for $i from 1 through 5 {
+                    &_box-#{$i} {
+                        @include background-color(blue-grey, 7);
+                        box-shadow: 0 0 .5rem .5px rgb(84, 110, 122);
+                        border: none;
+                        & > h4 {
+                            @include color(grey, 4);
+                        }
+                    }
+                }
+            }
+        }
+        & .proyectos {
+            background-color: rgba(224, 217, 244, .9);
+            & > h2 {
+                @include color(soft-black, 12);
+                font-weight: 800;
+            }
+            &_list {
+                &_first,
+                &_second,
+                &_third {
+                    @include background-color(blue-grey, 7);
+                    box-shadow: 0 0 .5rem .5px rgb(84, 110, 122);
+                    border: none;
+                    & .content {
+                        & h3 {
+                            @include color(grey, 4);
+                        }
+                        & p {
+                            @include color(grey, 4);
+                        }
+                    }
+                    & .enlaces {
+                        & a {
+                            @include color(grey, 4);
+                        }
+                    }
+                }
+            }
+        }
+        & .contacto {
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(224, 217, 244, .3);
+        }
+        & .footer {
+            background-color: rgba(224, 217, 244, .9);
+            @include color(soft-black, 12);
+            & > p {
+                @include color(soft-black, 12);
+                font-weight: 500;
+            }
+            &_resume-links {
+                &_es-pdf,
+                &_en-pdf {
+                    & a {
+                        @include color(soft-black, 12);
+                        font-weight: 500;
+                        &:hover {
+                            text-decoration: underline #546e7a;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@include media-query(tablet-small) {
+    body {
+        & .header {
+            display: flex;
+            justify-content: space-between;
+            & .mobile-menu {
+                @include size($spacing-24, $spacing-24);
+                display: block;
+                position: relative;
+                & .icon {
+                    transition: .5s transform;
+                }
+                &_list {
+                    border: 1px solid #555;
+                    @include size($spacing-120,_);
+                    display: flex;
+                    flex-direction: column;
+                    gap: $spacing-8;
+                    padding: $spacing-16;
+                    border-radius: $spacing-8;
+                    @include background-color(soft-black, 14);
+                    position: absolute;
+                    left: -8rem;
+                    opacity: 0;
+                    transition: .5s opacity, .5s left;
+                    & li {
+                        transition: .6s padding;
+                        &:hover {
+                            padding: 0 0 0 $spacing-8;
+                        }
+                    }
+
+                }
+                &:hover .mobile-menu_list {
+                    opacity: 1;
+                    left: 0;
+                }
+                &:hover .icon {
+                    transform: rotate(90deg);
+                }
+
+            }
+            &_nav {
+                display: none;
+            }
+            & ul.lang {
+                margin-bottom: $spacing-2;
+            }
+        }
+        & .about {
+            @include size(_, 100%);
+             padding: $spacing-16 0;
+            &_content {
+                flex-direction: column;
+                padding: $spacing-8 $spacing-16;
+                gap:$spacing-16;
+                &_text {
+                    gap: $spacing-8;
+                    text-align: center;
+                    & h2 {
+                        letter-spacing: -.075rem;
+                        line-height: 2.5rem;
+                    }
+                }
+                &_img {
+                    @include size($spacing-80, $spacing-80);
+                }
+            }
+        }
+        & .formacion {
+            gap : $spacing-8;
+            padding: $spacing-8 $spacing-16;
+            &_timeline {
+                & ul {
+                    grid-template-columns: 1fr;
+                    & li {
+                        padding: $spacing-16;
+                        border: 1px solid #555;
+                        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.07));
+                        backdrop-filter: blur(15px);
+                        -webkit-backdrop-filter: blur(15px);
+                    }
+                }
+            }
+        }
+        & .tecnologias {
+            height: max-content;
+            &_list {
+                grid-template-columns: 1fr;
+            }
+        }
+        & .proyectos {
+            height: max-content;
+            padding: $spacing-16 $spacing-8;
+            &_list {
+                grid-template-columns: 1fr;
+                &_third {
+                    margin-bottom: $spacing-8;
+                }
+            }
+        }
+        & .contacto {
+            gap: $spacing-16;
+            & ul {
+                gap: $spacing-40;
+                & li {
+                    @include size($spacing-32, $spacing-32);
+                    & a {
+                        &::before {
+                            @include size($spacing-48, $spacing-48);
+                        }
+                    }
+                }
+            }
+        }
+        & .footer {
+            flex-direction: column;
+            gap: $spacing-16;
+            &_resume-links {
+                flex-direction: row;
+                gap: $spacing-32;
+                &_es-pdf,
+                &_en-pdf {
+                    margin: 0;
+                }
+            }
+        }
+        &.light-theme {
+            & .header {
+                & .mobile-menu {
+                    &_list {
+                        background-color: rgba(84, 110, 122, .7);
+                        backdrop-filter: blur(7px);
+                        -webkit-backdrop-filter: blur(7px);
+                        border: none;
+                    }
+                }
+                &_nav {
+                    display: none;
+                }
+            }
+        }
+    }
+}

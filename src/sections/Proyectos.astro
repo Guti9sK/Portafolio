@@ -1,0 +1,55 @@
+---
+import Layout from "../layout/layout.astro";
+import { Image } from "astro:assets";
+import explorAR from '../assets/images/explorAR.webp';
+import heladeria from '../assets/images/heladeria.webp';
+import primeCar from '../assets/images/prime-car.webp';
+const {t} = Astro.props;
+---
+
+<Layout>
+    <section class="proyectos" id="proyectos">
+        <h2>{t.projects.title}</h2>
+        <div class="proyectos_list">
+            <div class="proyectos_list_first">
+                <div class="imagen">
+                   <Image src={explorAR} alt="imagen primer proyecto"/>
+                </div>
+                <div class="content">
+                    <h3>{t.projects.first.content.title}</h3>
+                    <p>{t.projects.first.content.description}</p>
+                </div>
+                <div class="enlaces">
+                    <a href="https://explor-ar.vercel.app/" target="_blank" rel="noopener noreferrer">{t.projects.first.links[1].title}</a>
+                    <a href="https://github.com/Guti9sK/ExplorAR" target="_blank" rel="noopener noreferrer">{t.projects.first.links[2].title}</a>
+                </div>
+            </div>
+            <div class="proyectos_list_second">
+                <div class="imagen">
+                    <Image src={heladeria} alt="imagen segundo proyecto"/>
+                </div>
+                <div class="content">
+                    <h3>{t.projects.second.content.title}</h3>
+                    <p>{t.projects.second.content.description}</p>
+                </div>
+                <div class="enlaces">
+                    <a href="https://heladeria-beta.vercel.app/" target="_blank" rel="noopener noreferrer">{t.projects.second.links[1].title}</a>
+                    <a href="https://github.com/Guti9sK/Heladeria" target="_blank" rel="noopener noreferrer">{t.projects.second.links[2].title}</a>
+                </div>
+            </div>
+            <div class="proyectos_list_third">
+                <div class="imagen">
+                   <Image src={primeCar} alt="imagen tercer proyecto"/>
+                </div>
+                <div class="content">
+                    <h3>{t.projects.third.content.title}</h3>
+                    <p>{t.projects.third.content.description}</p>
+                </div>
+                <div class="enlaces">
+                    <a href="https://prime-car-xi.vercel.app/" target="_blank" rel="noopener noreferrer">{t.projects.third.links[1].title}</a>
+                    <a href="https://github.com/Guti9sK/Prime-Car" target="_blank" rel="noopener noreferrer">{t.projects.third.links[2].title}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

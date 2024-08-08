@@ -1,0 +1,24 @@
+---
+import Layout from "../layout/layout.astro";
+import { Image } from "astro:assets";
+import UKFlag from '../assets/images/UK-flag.svg';
+import ESFlag from '../assets/images/ES-flag.svg';
+const {t} = Astro.props;
+---
+
+<Layout>
+    <footer class="footer">
+        <p>{t.footer.description}</p>
+        <div class="footer_resume-links">
+            <div class="footer_resume-links_es-pdf">
+                <a href="/public/resume-es.pdf" download="resume-es.pdf">{t.footer.links[1].title}</a>
+                <Image src={ESFlag} alt="ES flag"/>
+        </div>
+        <div class="footer_resume-links_en-pdf">
+               <a href="/public/resume-en.pdf" download="resume-en.pdf">
+                {t.footer.links[2].title}</a>
+                <Image src={UKFlag} alt="UK flag"/>
+        <div class="en-pdf">
+        </div>
+    </footer>
+</Layout>

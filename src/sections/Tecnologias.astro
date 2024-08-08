@@ -1,0 +1,74 @@
+---
+import Layout from "../layout/layout.astro";
+import { Image } from "astro:assets";
+import ts from '../assets/images/ts.webp';
+import js from '../assets/images/js.webp';
+import html from '../assets/images/html5.webp';
+import sass from '../assets/images/sass.webp';
+import react from '../assets/images/react.webp';
+import astro from '../assets/images/astro.webp';
+import git from '../assets/images/git.webp';
+import github from '../assets/images/github.png';
+import css from '../assets/images/css3.png';
+const {t} = Astro.props;
+---
+
+<Layout>
+    <section class="tecnologias">
+        <h2>{t.technologies.title}</h2>
+        <div class="tecnologias_list">
+            <div class="tecnologias_list_box-1">
+                 <h4>{t.technologies.box1.title}</h4>
+                 <div class="tecnologias_list_box-1_items">
+                     <div class="tecnologias_list_box-1_items_item">
+                         <Image src={html} alt="logo de HTML" />
+                     </div>
+                     <div class="tecnologias_list_box-1_items_item">
+                         <Image src={css} alt="logo de CSS" />
+                     </div>
+                 </div>
+            </div>
+            <div class="tecnologias_list_box-2">
+                <h4>{t.technologies.box2.title}</h4>
+                <div class="tecnologias_list_box-2_items">
+                    <div class="tecnologias_list_box-2_items_item">
+                        <Image src={ts} alt="logo de TypeScript" />
+                    </div>
+                    <div class="tecnologias_list_box-2_items_item">
+                        <Image src={js} alt="logo de JavaScript" />
+                </div>
+                </div>
+            </div>
+            <div class="tecnologias_list_box-3">
+                <h4>{t.technologies.box3.title}</h4>
+                <div class="tecnologias_list_box-3_items">
+                    <div class="tecnologias_list_box-3_items_item">
+                        <Image src={astro} alt="logo de Astro.js" />
+                    </div>
+                    <div class="tecnologias_list_box-3_items_item">
+                        <Image src={react} alt="logo de React.js" />
+                    </div>
+                </div>
+            </div>
+            <div class="tecnologias_list_box-4">
+                <h4>{t.technologies.box4.title}</h4>
+                <div class="tecnologias_list_box-4_items">
+                    <div class="tecnologias_list_box-4_items_item">
+                        <Image src={sass} alt="logo de SASS" />
+                    </div>
+                </div>
+            </div>
+            <div class="tecnologias_list_box-5">
+                <h4>{t.technologies.box5.title}</h4>
+                <div class="tecnologias_list_box-5_items">
+                    <div class="tecnologias_list_box-5_items_item">
+                        <Image src={git} alt="logo de GIT" />
+                    </div>
+                    <div class="tecnologias_list_box-5_items_item">
+                        <Image src={github} alt="logo de GitHub" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

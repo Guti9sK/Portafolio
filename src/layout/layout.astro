@@ -1,0 +1,60 @@
+---
+import es from '../i18n/es';
+import en from '../i18n/en';
+import type {Translations} from '../i18n/types';
+type Language = 'es' | 'en';
+const translations: Record<Language, Translations> = { en, es };
+const { language = 'es' } = Astro.props as { language: Language; title: string };
+const t = translations[language];
+---
+
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32.png" />
+    <title>{t.title}</title>
+    <meta name="description" content={t.description} />
+  </head>
+  <body >
+    <slot {...{t}} />
+  </body>
+</html>
+
+<style is:global lang="scss">
+  @import "../styles-astro/main.scss";
+
+  html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+</style>
+
+<script>
+  import Lenis from 'lenis';
+
+  const lenis = new Lenis();
+
+function raf(time: number) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf)
+</script>

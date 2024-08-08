@@ -1,0 +1,25 @@
+---
+import About from '../sections/About.astro';
+import Contacto from '../sections/Contacto.astro';
+import Footer from '../layout/Footer.astro';
+import Formacion from '../sections/Formacion.astro';
+import Header from '../layout/Header.astro';
+import Layout from '../layout/layout.astro';
+import Proyectos from '../sections/Proyectos.astro';
+import Tecnologias from '../sections/Tecnologias.astro';
+
+import es from '../i18n/es';
+
+const t = es;
+const language = 'es';
+---
+
+<Layout language={language}>
+    <Header t={t} language={language}/>
+    <About t={t}/>
+    <Formacion t={t} />
+    <Tecnologias t={t} />
+    <Proyectos t={t} />
+    <Contacto t={t} />
+    <Footer t={t} />
+</Layout>
